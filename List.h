@@ -110,24 +110,76 @@ public:
 		reverse();
 	}
 
+	/*
 	void operator=(const List<T>&& list)
 	{
 		clear();
 
-		auto newNode = new Node;
-		newNode = list.head;
-
-		for (long long i = 0; i < list.size_; ++i)
-		{
-			push_front(newNode->value);
-			newNode = newNode->tail;
-		}
-		reverse();
-		delete list;
+		head = list.head;
+		size_ = list.size_;
+		
 	}
+	*/
 
-	long long size()
+	size_t size()
 	{
 		return size_;
+	}
+
+	void pop_front()
+	{
+		--size_;
+		head = head->tail;
+		delete head->head;
+		head->head = head;
+	}
+
+	void resize(long long _size_)
+	{
+		if (_size_ > size_)
+			while (size_ < _size_) push_front(0);
+		else
+		{
+			clear();
+			while (size_ < _size_) push_front(0);
+		}
+	}
+
+	void remove(T x)
+	{
+		auto node = new Node;
+		node = head;
+		while (node != node->tail)
+		{
+			if (node->value == x)
+			{
+				if (node->head != node)
+				{
+					Node* d = node;
+					node->head->tail = node->tail;
+					node->tail->head = node->tail;
+					node = node->tail;
+					delete d;
+				}
+				else
+				{
+					Node* d = node;
+					node->tail->head = node->tail;
+					node = node->tail;
+					delete d;
+				}
+			}
+			else node = node->tail;
+		}
+		if (node->value == x)
+		{
+			node->head->tail = node->head;
+			delete node;
+		}
+	}
+
+	T& front()
+	{
+		return head->value;
 	}
 };
