@@ -11,6 +11,9 @@ class List
 	};
 
 	Node head;
+	long long size_;
+
+public:
 
 public:
 
@@ -20,38 +23,53 @@ public:
 		newNode->head = newNode;
 		newNode->tail = nullptr;
 		head = *newNode;
+		size_ = 0;
 	}
 
 	List(const List<T>& list)
 	{
-		if (list != list.head.tail) List(list.head.tail);
-		push_front(list.head.value);
+		size_ = 0;
+		Node newNode = list.head;
+
+		for (long long i = 0; i < list.size_; ++i)
+		{
+			push_front(newNode.value);
+			newNode = *newNode.tail;
+		}
+		//reverse();
 	}
+	/*
+	void reverse()
+	{
+
+		for (long long i = 0; i < size; ++i)
+		{
+			
+		}
+	}
+	*/
 
 	void push_front(T val)
 	{
-
+		++size_;
+		auto newNode = new Node;
+		newNode->value = val;
+		head.head = newNode;
+		newNode->head = newNode;
+		newNode->tail = newNode;
 		if (head.tail != nullptr)
 		{
-			auto newNode = new Node;
 			auto oldNode = new Node;
-			oldNode = head.head;
-			newNode->value = val;
-			head.head = newNode;
-			newNode->head = newNode;
+			*oldNode = head;
+			oldNode->head = newNode;
 			newNode->tail = oldNode;
-			head = *newNode;
 		}
-		else
-		{
-			auto newNode = new Node;
-			newNode->value = val;
-			head.head = newNode;
-			newNode->head = newNode;
-			newNode->tail = newNode;
-			head = *newNode;
-		}
+
+		head = *newNode;
 	}
 
-	
+	long long size()
+	{
+		return size_;
+	}
 };
