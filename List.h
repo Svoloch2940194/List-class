@@ -153,19 +153,22 @@ public:
 		{
 			if (node->value == x)
 			{
+				--size_;
 				if (node->head != node)
 				{
 					Node* d = node;
 					node->head->tail = node->tail;
-					node->tail->head = node->tail;
+					node->tail->head = node->head;
 					node = node->tail;
 					delete d;
 				}
 				else
 				{
+
 					Node* d = node;
 					node->tail->head = node->tail;
 					node = node->tail;
+					head = node;
 					delete d;
 				}
 			}
@@ -173,9 +176,11 @@ public:
 		}
 		if (node->value == x)
 		{
+			--size_;
 			node->head->tail = node->head;
 			delete node;
 		}
+		if (size_ == 0) clear();
 	}
 
 	T& front()
