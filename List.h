@@ -11,27 +11,27 @@ class List
 	};
 
 	Node* head;
-	//Node* tail;
 	size_t size_;
 
 public:
 
 	List()
 	{
-		auto newNode = new Node;
-		newNode->head = newNode;
-		newNode->tail = nullptr;
-		head = newNode;
+		head = nullptr;
 		size_ = 0;
+
+	}
+
+	~List()
+	{
+		clear();
+		delete head;
 	}
 
 	List(const List<T>& list)
 	{
-		auto node = new Node;
-		node->head = node;
-		node->tail = nullptr;
+		head = nullptr;
 		size_ = 0;
-		head = node;
 
 		auto newNode = new Node;
 		newNode = list.head;
@@ -63,11 +63,11 @@ public:
 		++size_;
 		auto newNode = new Node;
 		newNode->value = val;
-		head->head = newNode;
+		if(head!=nullptr) head->head = newNode;
 		newNode->head = newNode;
-		newNode->tail = head;
-		head->head = newNode;
-		if (head->tail == nullptr)
+		if (head != nullptr) newNode->tail = head;
+		if(head!=nullptr) head->head = newNode;
+		if (head == nullptr)
 		{
 			newNode->tail = newNode;
 		}
@@ -82,18 +82,48 @@ public:
 
 	void clear()
 	{
-		while (head != head->tail)
+		size_ = 0;
+		if (size_ != 0)
 		{
-			head = head->tail;
-			delete head->head;
-			head->head = head;
+			while (head != head->tail)
+			{
+				head = head->tail;
+				delete head->head;
+				head->head = head;
+			}
 		}
+		delete head;
+		head = nullptr;
 	}
 
 	void operator=(const List<T>& list)
 	{
 		clear();
+		
+		auto newNode = new Node;
+		newNode = list.head;
+		for (long long i = 0; i < list.size_; ++i)
+		{
+			push_front(newNode->value);
+			newNode = newNode->tail;
+		}
+		reverse();
+	}
 
+	void operator=(const List<T>&& list)
+	{
+		clear();
+
+		auto newNode = new Node;
+		newNode = list.head;
+
+		for (long long i = 0; i < list.size_; ++i)
+		{
+			push_front(newNode->value);
+			newNode = newNode->tail;
+		}
+		reverse();
+		delete list;
 	}
 
 	long long size()
