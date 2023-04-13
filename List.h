@@ -74,6 +74,28 @@ public:
 		head = newNode;
 	}
 
+	bool empty()
+	{
+		if (size_ == 0) return true;
+		else return false;
+	}
+
+	void clear()
+	{
+		while (head != head->tail)
+		{
+			head = head->tail;
+			delete head->head;
+			head->head = head;
+		}
+	}
+
+	void operator=(const List<T>& list)
+	{
+		clear();
+
+	}
+
 	long long size()
 	{
 		return size_;
