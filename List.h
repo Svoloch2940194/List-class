@@ -153,21 +153,9 @@ public:
 		return x;
 	}
 
-	iterator rbegin()
-	{
-		iterator x = tail;
-		return x;
-	}
-
 	iterator end()
 	{
 		iterator x = tail;
-		return x;
-	}
-
-	iterator rend()
-	{
-		iterator x = head;
 		return x;
 	}
 
@@ -186,16 +174,18 @@ public:
 
 
 
-	/*
-	void operator=(const List<T>&& list)
+	void operator=(List<T>&& list)
 	{
-		clear();
-
+		size_t _size_ = size_;
+		Node* node_head = head;
+		Node* node_tail = tail;
 		head = list.head;
+		tail = list.tail;
 		size_ = list.size_;
-		
+		list.size_ = _size_;
+		list.head = node_head;
+		list.tail = node_tail;
 	}
-	*/
 
 	size_t size()
 	{
@@ -210,7 +200,7 @@ public:
 		head->head = head;
 	}
 
-	void resize(long long _size_)
+	void resize(size_t _size_)
 	{
 		if (_size_ > size_)
 			while (size_ < _size_) push_front(0);
@@ -266,3 +256,10 @@ public:
 		return head->value;
 	}
 };
+
+template<class T>
+
+void swap(List<T>& list1, List<T>& list2)
+{
+	list1 = std::move(list2);
+}
