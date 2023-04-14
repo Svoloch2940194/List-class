@@ -16,13 +16,15 @@ class List
 
 public:
 
-	struct interator
+	struct iterator
 	{
 		Node* id;
+		size_t col_end;
 
-		iterator()
+		iterator(Node* x)
 		{
-			id = nullptr;
+			id = x;
+			col_end = 0;
 		}
 
 		T operator*()
@@ -33,11 +35,18 @@ public:
 		void operator=(Node* x)
 		{
 			id = x;
+			col_end = 0;
 		}
 
-		bool operator==(Node* x)
+		bool operator==(iterator x)
 		{
 			return id == x;
+		}
+
+		bool operator!=(iterator x)
+		{
+			if (id == id->tail) col_end++;
+			return id != x.id || col_end < 2;
 		}
 
 		void operator++()
@@ -140,12 +149,26 @@ public:
 
 	iterator begin()
 	{
-		return head;
+		iterator x = head;
+		return x;
+	}
+
+	iterator rbegin()
+	{
+		iterator x = tail;
+		return x;
 	}
 
 	iterator end()
 	{
-		return tail;
+		iterator x = tail;
+		return x;
+	}
+
+	iterator rend()
+	{
+		iterator x = head;
+		return x;
 	}
 
 	void operator=(const List<T>& list)
