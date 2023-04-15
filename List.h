@@ -182,7 +182,7 @@ public:
 		list.tail = node_tail;
 	}
 
-	size_t size()
+	size_t size() const
 	{
 		return size_;
 	}
