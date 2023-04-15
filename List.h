@@ -1,5 +1,3 @@
-#pragma once
-
 template<class T>
 
 class List
@@ -73,8 +71,7 @@ public:
 		tail = nullptr;
 		size_ = 0;
 
-		auto newNode = new Node;
-		newNode = list.head;
+		auto newNode = list.head;
 		for (long long i = 0; i < list.size_; ++i)
 		{
 			push_front(newNode->value);
@@ -92,8 +89,7 @@ public:
 
 	void reverse()
 	{
-		auto node = new Node;
-		node = head;
+		auto node = head;
 		for (long long i = 0; i < size_; ++i)
 		{
 			Node* x = node->head;
@@ -111,10 +107,10 @@ public:
 		++size_;
 		auto newNode = new Node;
 		newNode->value = val;
-		if(head!=nullptr) head->head = newNode;
+		if (head != nullptr) head->head = newNode;
 		newNode->head = newNode;
 		if (head != nullptr) newNode->tail = head;
-		if(head!=nullptr) head->head = newNode;
+		if (head != nullptr) head->head = newNode;
 		if (head == nullptr)
 		{
 			newNode->tail = newNode;
@@ -131,7 +127,7 @@ public:
 
 	void clear()
 	{
-		size_ = 0;
+		
 		if (size_ != 0)
 		{
 			while (head != head->tail)
@@ -141,8 +137,8 @@ public:
 				head->head = head;
 			}
 		}
+		size_ = 0;
 		delete head;
-		delete tail;
 		head = nullptr;
 		tail = nullptr;
 	}
@@ -162,8 +158,7 @@ public:
 	void operator=(const List<T>& list)
 	{
 		clear();
-		auto newNode = new Node;
-		newNode = list.head;
+		auto newNode = list.head;
 		for (long long i = 0; i < list.size_; ++i)
 		{
 			push_front(newNode->value);
@@ -213,8 +208,7 @@ public:
 
 	void remove(T x)
 	{
-		auto node = new Node;
-		node = head;
+		auto node = head;
 		while (node != node->tail)
 		{
 			if (node->value == x)
