@@ -155,7 +155,7 @@ public:
 		return x;
 	}
 
-	void operator=(const List<T>& list)
+	List<T>& operator=(const List<T>& list)
 	{
 		clear();
 		auto newNode = list.head;
@@ -165,11 +165,10 @@ public:
 			newNode = newNode->tail;
 		}
 		reverse();
+		return *this;
 	}
 
-
-
-	void operator=(List<T>&& list)
+	List<T>& operator=(List<T>&& list)
 	{
 		size_t _size_ = size_;
 		Node* node_head = head;
@@ -180,6 +179,7 @@ public:
 		list.size_ = _size_;
 		list.head = node_head;
 		list.tail = node_tail;
+		return *this;
 	}
 
 	size_t size() const
