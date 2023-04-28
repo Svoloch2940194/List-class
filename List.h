@@ -25,15 +25,16 @@ public:
 			col_end = 0;
 		}
 
-		T operator*()
+		T& operator*()
 		{
 			return id->value;
 		}
 
-		void operator=(Node* x)
+		iterator& operator=(Node* x)
 		{
 			id = x;
 			col_end = 0;
+			return *this;
 		}
 
 		bool operator==(iterator x)
@@ -47,14 +48,16 @@ public:
 			return id != x.id || col_end < 2;
 		}
 
-		void operator++()
+		iterator& operator++()
 		{
 			id = id->tail;
+			return *this;
 		}
 
-		void operator--()
+		iterator& operator--()
 		{
 			id = id->head;
+			return *this;
 		}
 	};
 
