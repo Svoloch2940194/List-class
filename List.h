@@ -122,15 +122,14 @@ public:
 		if (tail == nullptr) tail = head;
 	}
 
-	bool empty()
+	bool empty() const
 	{
-		if (size_ == 0) return true;
-		else return false;
+		return size_ == 0;
 	}
 
 	void clear()
 	{
-		
+
 		if (size_ != 0)
 		{
 			while (head != head->tail)
