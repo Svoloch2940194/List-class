@@ -2,7 +2,8 @@ template<class T>
 
 class List
 {
-	struct Node {
+	struct Node 
+	{
 		Node* head;
 		Node* tail;
 		T value;
