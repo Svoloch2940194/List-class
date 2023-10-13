@@ -2,7 +2,7 @@ template<class T>
 
 class List
 {
-	struct Node 
+	struct Node
 	{
 		Node* head;
 		Node* tail;
@@ -173,15 +173,7 @@ public:
 
 	List<T>& operator=(List<T>&& list)
 	{
-		size_t _size_ = size_;
-		Node* node_head = head;
-		Node* node_tail = tail;
-		head = list.head;
-		tail = list.tail;
-		size_ = list.size_;
-		list.size_ = _size_;
-		list.head = node_head;
-		list.tail = node_tail;
+		swap(*this, list);
 		return *this;
 	}
 
@@ -252,11 +244,11 @@ public:
 	{
 		return head->value;
 	}
+
+	friend void swap(List<T>& list1, List<T>& list2)
+	{
+		swap(list1.size_, list2.size_);
+		swap(list1.head, list2.head);
+		swap(list1.tail, list2.tail);
+	}
 };
-
-template<class T>
-
-void swap(List<T>& list1, List<T>& list2)
-{
-	list1 = std::move(list2);
-}
